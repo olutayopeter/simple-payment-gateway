@@ -10,7 +10,7 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic webhookTopic() {
-        return TopicBuilder.name("webhook-topic")
+        return TopicBuilder.name("notification-topic")
                 .partitions(1)
                 .replicas(1)
                 .build();
