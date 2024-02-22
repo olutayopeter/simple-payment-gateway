@@ -11,10 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/payment")
+@Validated
 public class PaymentController {
 
     private static final Logger log = LoggerFactory.getLogger(PaymentController.class);
@@ -32,7 +35,7 @@ public class PaymentController {
     }
 
     @PostMapping("/initiate")
-    public ResponseEntity<PaymentResponseDTO> initiateTransaction(@RequestBody PaymentRequestDTO request) throws JsonProcessingException {
+    public ResponseEntity<PaymentResponseDTO> initiateTransaction(@Valid @RequestBody PaymentRequestDTO request) throws JsonProcessingException {
         // Log the receipt of an initiate transaction request
         log.info("Received initiate transaction request: {}", gson.fromJson(objectMapper.writeValueAsString(request), PaymentRequestDTO.class));
         try {
