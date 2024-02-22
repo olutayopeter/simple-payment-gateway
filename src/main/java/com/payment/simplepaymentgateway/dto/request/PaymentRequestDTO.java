@@ -30,7 +30,7 @@ public class PaymentRequestDTO {
     @NotBlank(message = "Currency cannot be blank")
     private String currency;
 
-    @Digits(integer = 10, fraction = 0, message = "Destination account must be a valid numeric value with up to 10 digits")
+     @NotBlank(message = "Destination account cannot be blank")
     private String destinationAccount;
 
     @NotBlank(message = "Destination account name cannot be blank")
@@ -39,7 +39,7 @@ public class PaymentRequestDTO {
     @NotBlank(message = "Destination bank code cannot be blank")
     private String destinationBankCode;
 
-    @Digits(integer = 10, fraction = 0, message = "Source account must be a valid numeric value with up to 10 digits")
+    @NotBlank(message = "Source account cannot be blank")
     private String sourceAccount;
 
     private String sourceAccountName;
