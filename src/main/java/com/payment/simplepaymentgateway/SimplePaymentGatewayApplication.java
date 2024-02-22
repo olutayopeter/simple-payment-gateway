@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@EnableKafka
 public class SimplePaymentGatewayApplication {
 
 	public static void main(String[] args) {
