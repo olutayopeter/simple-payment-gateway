@@ -15,7 +15,7 @@ public class PaymentRequestDTO {
 
     @NotNull(message = "Amount cannot be null")
     @Positive(message = "Amount must be a positive value")
-    @Digits(integer = 10, fraction = 2, message = "Destination account must be a valid numeric value with up to 10 digits")
+    @Digits(integer = 10, fraction = 2, message = "Amount must be a valid numeric value")
     private Double amount;
 
     @NotBlank(message = "Transaction reference cannot be blank")
