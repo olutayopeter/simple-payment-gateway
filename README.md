@@ -158,9 +158,10 @@ Follow the installation guide for each software website link and check your soft
 ### Getting Started
 
 git clone https://github.com/olutayopeter/simple-payment-gateway.git
-cd payment-gateway-service
 
 ### Build and run the application:
+
+cd payment-gateway-service
 
 ./mvnw spring-boot:run
 
