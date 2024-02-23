@@ -21,9 +21,9 @@ public class PaymentTransaction {
     private Long id;
 
     private Double amount;
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'NONE'")
+    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
     private String status;
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'NONE'")
+    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
     private String paymentStatus;
     @Column(columnDefinition = "VARCHAR(3000)")
     private String message;
@@ -35,12 +35,12 @@ public class PaymentTransaction {
     private String destinationAccount;
     private String destinationAccountName;
     private String destinationBankCode;
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'olutayopeter2014@gmail.com'")
+    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'none'")
     private String destinationEmail;
     private String sourceAccount;
     private String sourceAccountName;
     private String sourceBankCode;
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'olutayo.adelodun@9psb.com.ng'")
+    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'none'")
     private String sourceEmail;
     private String authorizationId;
     private LocalDateTime transactionDate;
