@@ -112,48 +112,27 @@ Follow the installation guide for each software website link and check your soft
 
 
 
-### 2. Webhook Notifications
+### 2. Webhook Notifications(Set up Kafka)
 
-- **Endpoint:** `/webhook/notifications`
-- **Details:** This endpoint has been implemented to receive webhook notifications for transaction updates. Whenever the status of a transaction changes, the payment gateway will send a POST request to this endpoint with details about the updated transaction.
-
-  - The payload of the webhook notification includes information such as:
-    - Transaction reference
-    - Updated payment status
-    - Authorization ID
-    - Transaction description
-    - Transaction date
-    - Payment date
-    - Currency
-    - Destination account details
-    - Source account details
+ - Install and start Apache Kafka. [Kafka Quickstart Guide](https://kafka.apache.org/quickstart)
+Configure Gmail for Email Notifications:
 
   - The webhook notification service processes these updates and can be used by external systems to stay synchronized with the latest transaction information.
 
-  - Ensure that your application has the necessary logic to securely handle and process incoming webhook notifications. Implement appropriate error handling and retry mechanisms to handle potential failures.
+ - Update `application.properties` with your Gmail credentials:
 
-  - Developers integrating with this service should subscribe to the `/webhook/notifications` endpoint to receive real-time updates on transaction status changes.
+        ```properties
+        spring.mail.host=smtp.gmail.com
+        spring.mail.port=587
+        spring.mail.username=your-gmail-username@gmail.com
+        spring.mail.password=your-gmail-password
+        spring.mail.properties.mail.smtp.auth=true
+        spring.mail.properties.mail.smtp.starttls.enable=true
+        spring.mail.from=your-sender-email@gmail.com
 
-  - **Sample Webhook Notification Payload:**
-    ```json
-    {
-        "transactionRef": "12345678900000345",
-        "paymentStatus": "SUCCESS",
-        "authorizationId": "300008259334",
-        "transactionDescription": "Payment for services",
-        "transactionDate": "2022-02-21T12:34:56.789",
-        "paymentDate": "2022-02-21T12:34:56.789",
-        "currency": "NGN",
-        "destinationAccount": "4589999044",
-        "destinationBankCode": "044",
-        "sourceAccount": "8909090989",
-        "sourceBankCode": "058",
-        "destinationEmail": "olutayopeter2014@gmail.com",
-        "sourceEmail": "olutayo.adelodun@9psb.com.ng"
-    }
-    ```
-
-  - Developers can use this information to update their systems or trigger specific actions based on the latest status of the payment transactions.
+   
+###  **Receive Email Notifications**:
+Upon a successful transaction, an email notification will be sent to the specified destination email address.
 
 ### Getting Started
 
