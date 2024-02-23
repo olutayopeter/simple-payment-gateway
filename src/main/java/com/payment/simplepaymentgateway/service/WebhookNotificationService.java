@@ -12,34 +12,34 @@ import org.springframework.stereotype.Service;
 @Service
 public class WebhookNotificationService {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
-    private final JavaMailSender javaMailSender;
-
-    private static final Logger log = LoggerFactory.getLogger(WebhookNotificationService.class);
-
-    public WebhookNotificationService(KafkaTemplate<String, String> kafkaTemplate,JavaMailSender javaMailSender) {
-        this.kafkaTemplate = kafkaTemplate;
-        this.javaMailSender = javaMailSender;
-    }
-
-
-    @KafkaListener(topics = "notification-topic", groupId = "notification-consumer-group")
-    public void receiveNotification(PaymentResponseDTO paymentResponseDTO) {
-        sendNotification(paymentResponseDTO);
-    }
-
-    private void sendNotification(PaymentResponseDTO paymentResponseDTO) {
-        log.info("Sending notification to destination account: {}", paymentResponseDTO);
-
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(paymentResponseDTO.getData().getDestinationEmail());
-        mailMessage.setSubject("Payment Notification");
-        mailMessage.setText("Dear user,\n\nYour payment has been processed successfully.");
-
-        javaMailSender.send(mailMessage);
-
-        log.info("Notification email sent to: {}", paymentResponseDTO.getData().getDestinationEmail());
-    }
+//    private final KafkaTemplate<String, String> kafkaTemplate;
+//    private final JavaMailSender javaMailSender;
+//
+//    private static final Logger log = LoggerFactory.getLogger(WebhookNotificationService.class);
+//
+//    public WebhookNotificationService(KafkaTemplate<String, String> kafkaTemplate,JavaMailSender javaMailSender) {
+//        this.kafkaTemplate = kafkaTemplate;
+//        this.javaMailSender = javaMailSender;
+//    }
+//
+//
+//    @KafkaListener(topics = "notification-topic", groupId = "notification-consumer-group")
+//    public void receiveNotification(PaymentResponseDTO paymentResponseDTO) {
+//        sendNotification(paymentResponseDTO);
+//    }
+//
+//    private void sendNotification(PaymentResponseDTO paymentResponseDTO) {
+//        log.info("Sending notification to destination account: {}", paymentResponseDTO);
+//
+//        SimpleMailMessage mailMessage = new SimpleMailMessage();
+//        mailMessage.setTo(paymentResponseDTO.getData().getDestinationEmail());
+//        mailMessage.setSubject("Payment Notification");
+//        mailMessage.setText("Dear user,\n\nYour payment has been processed successfully.");
+//
+//        javaMailSender.send(mailMessage);
+//
+//        log.info("Notification email sent to: {}", paymentResponseDTO.getData().getDestinationEmail());
+//    }
 
 
 }
