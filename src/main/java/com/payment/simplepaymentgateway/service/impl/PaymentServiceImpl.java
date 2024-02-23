@@ -90,7 +90,7 @@ public class PaymentServiceImpl implements PaymentService {
             paymentRepository.save(paymentTransaction);
 
             // Check if the transaction is successful
-            if (paymentTransaction.getStatus().equals("00")) {
+            if (paymentTransaction.getStatus().equals("00") && paymentTransaction.getPaymentStatus().equals("SUCCESS")) {
                 // Send notification for successful transaction using Kafka
                 kafkaProducerService.sendNotification(paymentTransaction.getTransactionRef());
             }
