@@ -10,6 +10,7 @@ import com.payment.simplepaymentgateway.model.BankCodes;
 import com.payment.simplepaymentgateway.model.PaymentTransaction;
 import com.payment.simplepaymentgateway.repository.BankCodeRepository;
 import com.payment.simplepaymentgateway.repository.PaymentRepository;
+import com.payment.simplepaymentgateway.service.KafkaProducerService;
 import com.payment.simplepaymentgateway.service.PaymentService;
 import com.payment.simplepaymentgateway.util.Util;
 import org.slf4j.Logger;
@@ -27,14 +28,17 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final BankCodeRepository bankCodeRepository;
 
+    private final KafkaProducerService kafkaProducerService;
+
     private final Gson gson;
 
     private ObjectMapper objectMapper;
 
-    public PaymentServiceImpl(PaymentRepository paymentRepository,BankCodeRepository bankCodeRepository,Gson gson, ObjectMapper objectMapper) {
+    public PaymentServiceImpl(PaymentRepository paymentRepository,BankCodeRepository bankCodeRepository,KafkaProducerService kafkaProducerService,Gson gson, ObjectMapper objectMapper) {
 
         this.paymentRepository = paymentRepository;
         this.bankCodeRepository = bankCodeRepository;
+        this.kafkaProducerService = kafkaProducerService;
         this.gson = gson;
         this.objectMapper = objectMapper;
     }
@@ -84,6 +88,12 @@ public class PaymentServiceImpl implements PaymentService {
             PaymentTransaction paymentTransaction =  getPaymentTransaction(request,authId, "00","SUCCESS","The process was completed successfully");
 
             paymentRepository.save(paymentTransaction);
+
+            // Check if the transaction is successful
+            if (paymentTransaction.getStatus().equals("00")) {
+                // Send notification for successful transaction using Kafka
+                kafkaProducerService.sendNotification(paymentTransaction.getTransactionRef());
+            }
 
             // Create and return the response
             return PaymentResponseDTO.builder()
